@@ -1,4 +1,4 @@
-# Eno Ai Best Ai to Genrate Video, Text, Audio, Image, Code. 
+# Eno Ai Best Ai to Generate Video, Text, Audio, Image, Code. 
 
 ![Eno AI](https://github.com/GameOfCode64/eno/assets/131631135/6a913b85-dc93-48cd-ad15-e3b78bfa70e5)
 
