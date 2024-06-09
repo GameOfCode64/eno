@@ -26,29 +26,31 @@ export async function POST(req: Request) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
     if (!configuration.apiKey) {
-      return new NextResponse("Open Ai api Key Not Configer", { status: 500 });
+      return new NextResponse("OpenAI API key not configured", { status: 500 });
     }
     if (!messages) {
-      return new NextResponse("No Massage Found", { status: 400 });
+      return new NextResponse("No messages found", { status: 400 });
     }
 
     const freeTrial = await chackApiLimit();
     const isPro = await checkSubscription();
 
     if (!freeTrial && !isPro) {
-      return new NextResponse("Free Trial has expired", { status: 403 });
+      return new NextResponse("Free trial has expired", { status: 403 });
     }
 
     const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages: [instructionMessage, ...messages],
     });
+
     if (!isPro) {
       await increaseApiLimit();
     }
+
     return NextResponse.json(response.data.choices[0].message);
   } catch (err) {
-    console.log("Code Error", err);
+    console.error("Code Error", err);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
